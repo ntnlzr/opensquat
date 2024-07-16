@@ -51,7 +51,8 @@ def get_cpu_cores():
         int: Optimal number of threads.
     """
     cpu_count = multiprocessing.cpu_count()
-    return max(1, cpu_count - 1)
+    return cpu_count
+    #return max(1, cpu_count - 1)
 
 
 def query_worker(keywords, max_workers, api_key, log_level, counter_queue, keywords_total):
