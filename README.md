@@ -1,6 +1,6 @@
-openSquat
-====
-![alt text](https://raw.githubusercontent.com/atenreiro/opensquat/master/screenshots/openSquat_logo.png)
+
+# openSquat
+![openSquat Logo](https://raw.githubusercontent.com/atenreiro/opensquat/master/screenshots/openSquat_logo.png)
 
 ## Table of Contents
 - [What is openSquat](#what-is-opensquat)
@@ -16,150 +16,129 @@ openSquat
 - [Authors](#authors)
 - [How to Help](#how-to-help)
 
-What is openSquat
--------------
+## What is openSquat
+openSquat is an open-source Intelligence (OSINT) security tool designed to identify **cyber squatting** threats to specific companies or domains, including:
 
-openSquat is an opensource Intelligence (OSINT) security tool to identify **cyber squatting** threats to specific companies or domains, such as:
+- Phishing campaigns
+- Domain squatting
+- Typo squatting
+- Bitsquatting
+- IDN homograph attacks
+- Doppelgänger domains
+- Other brand/domain-related scams
 
-*   Phishing campaigns
-*   Domain squatting
-*   Typo squatting
-*   Bitsquatting
-*   IDN homograph attacks
-*   Doppenganger domains
-*   Other brand/domain related scams
+### Key Features
+- Automatic daily updates of newly registered domains
+- Levenshtein distance calculation for word similarity
+- Fetches active and known phishing domains (Phishing Database project)
+- IDN homograph attack detection
+- Integration with VirusTotal and Quad9 DNS service
+- Adjustable confidence thresholds
+- Output in various formats (txt, JSON, CSV)
+- Integration with other threat intelligence tools and DNS sinkholes
 
-It does support some key features such as:
+## Screenshot / Video Demo
+![openSquat Screenshot](https://raw.githubusercontent.com/atenreiro/opensquat/master/screenshots/openSquat.PNG)
 
-*   Automatic newly registered domain updating (once a day)
-*   Levenshtein distance to calculate word similarity
-*   Fetches active and known phishing domains (Phishing Database project)
-*   IDN homograph attack detection
-*   Integration with VirusTotal
-*   Integration with Quad9 DNS service
-*   Use different levels of confidence threshold to fine tune
-*   Save output into different formats (txt, JSON and CSV)
-*   Can be integrated with other threat intelligence tools and DNS sinkholes
+Check the [40-second Demo Video](https://asciinema.org/a/361931) (v1.95).
 
-As an opensource project, everyone's welcome to contribute.
+## Demo / Forks
+- [Phishy Domains](https://phishydomains.com): Simple web version of openSquat
+- [openSquat Bot](https://telegram.me/opensquat_bot): Telegram bot
+- [RapidAPI](https://rapidapi.com/atenreiro/api/opensquat1): Integrate your application with openSquat using REST API
 
-Screenshot / Video Demo
--------------
-![alt text](https://raw.githubusercontent.com/atenreiro/opensquat/dev/screenshots/openSquat.PNG)
+**Note:** The forks do not contain all the openSquat features.
 
-Check the 40 seconds [Demo Video](https://asciinema.org/a/361931) (v1.95)
+## How to Install
+\`\`\`bash
+git clone https://github.com/atenreiro/opensquat
+pip install -r requirements.txt
+\`\`\`
+Make sure you have **Python 3.6+** and **pip3** in your environment.
 
+## How to Update
+> :warning: **When updating**: especially for a major release, re-run \`pip install\` to check for new dependencies.
 
-Demo / Forks
-------------
-*   [Phishy Domains](https://phishydomains.com) for a simple web version of the openSquat.
-*   [openSquat Bot](https://telegram.me/opensquat_bot) for a simple Telegram bot.
-*   [RapidAPI](https://rapidapi.com/atenreiro/api/opensquat1) to integrate your application with openSquat using REST API.
+To update your current version, run the following commands inside the openSquat directory:
+\`\`\`bash
+git pull
+pip install -r requirements.txt
+\`\`\`
 
-**Note**: The forks do not contain all the openSquat features.
+## Usage Examples
+Edit the \`keywords.txt\` with your customized keywords to hunt.
 
+\`\`\`bash
+# Lazy run with default options
+python opensquat.py
 
-How to Install
-------------
+# For all the options
+python opensquat.py -h
 
-```bash
-    git clone https://github.com/atenreiro/opensquat
-    pip install -r requirements.txt
-```
-Make sure you have **Python 3.6+** and **pip3** in your environment
+# Search for generic terms used in phishing campaigns (can lead to false-positives)
+python opensquat.py -k generic.txt
 
-How to Update
-------------
-> :warning: **when updating**: especially for a major release, re-run the pip install to check for new dependencies.
+# With DNS validation (quad9)
+python opensquat.py --dns
 
-To update your current version, just type the following commands inside the openSquat directory:
-```bash
-    git pull
-    pip install -r requirements.txt
-```
-The "pip install" is just to make sure no new libs were added with the new upgrade. 
+# Subdomain search
+python opensquat.py --subdomains
 
+# Check for domains with open ports 80/443
+python opensquat.py --portcheck
 
-Usage Examples
-------------
-Edit the "keywords.txt" with your customised keywords to hunt.
+# With Phishing validation (Phishing Database)
+python opensquat.py --phishing phish_results.txt
 
-```bash
-    # Lazy run with default options
-    python opensquat.py
+# Save output as JSON
+python opensquat.py -o example.json -t json
 
-    # for all the options
-    python opensquat.py -h
-    
-    # Search for generic terms used in phishing campaigns (can lead to false-positives)
-    python opensquat.py -k generic.txt
+# Save output as CSV
+python opensquat.py -o example.csv -t csv
 
-    # With DNS validation (quad9)
-    python opensquat.py --dns
-    
-    # Subdomain search
-    python opensquat.py --subdomains
-    
-    # Check for domains with open ports 80/443
-    python opensquat.py --portcheck
+# Conduct a certificate transparency (ct) hunt
+python opensquat.py --ct
 
-    # With Phishing validation (Phishing Database)
-    python opensquat.py --phishing phish_results.txt
+# Period search - registrations from the last month (default: day)
+python opensquat.py -p month
 
-    # Save output as JSON
-    python opensquat.py -o example.json -t json
+# Tweak confidence level (0: very high, 1: high (default), 2: medium, 3: low, 4: very low)
+python opensquat.py -c 2
 
-    # Save output as CSV
-    python opensquat.py -o example.csv -t csv
+# All validations options
+python opensquat.py --phishing phishing_domains.txt --dns --ct --subdomains --portcheck
+\`\`\`
 
-    # Conduct a certificate transparency (ct) hunt
-    python opensquat.py --ct
-
-    # Period search - registrations from the last month (default: day)
-    python opensquat.py -p month
-
-    # Tweak confidence level. The lower values bring more false positives
-    # (0: very high, 1: high (default), 2: medium, 3: low, 4: very low
-    python opensquat.py -c 2
-
-    # All validations options
-    python opensquat.py --phishing phishing_domains.txt --dns --ct --subdomains --portcheck 
-```
-
-Automations & Integrations
--------------
+## Automations & Integrations
 You can set up openSquat to run automatically using a task scheduler (such as crontab for Linux) to generate a new list of results daily.
 
-We update our feeds with a fresh new list of domains every day around 7.30 am (UTC+0 / GMT+0)
+We update our feeds with a fresh new list of domains every day around 7:30 AM (UTC+0 / GMT+0).
 
-```bash
-# Crontab example - run openSquat every day at 8 am
+\`\`\`bash
+# Crontab example - run openSquat every day at 8 AM
 # In this example, the results are saved to a JSON file format
 0 8 * * * /home/john/opensquat/opensquat.py -k keywords.txt -o results.json -t json
-```
+\`\`\`
 You can use this output file to feed your SIEM, SOAR, or other tools that support importing from TXT/JSON/CSV formats.
 
-Alternatively, currently in a **Beta preview** you can integrate using REST APIs, your application with [RapidAPI](https://rapidapi.com/atenreiro/api/opensquat1)
+Alternatively, currently in a **Beta preview**, you can integrate using REST APIs with [RapidAPI](https://rapidapi.com/atenreiro/api/opensquat1).
 
 Do you have an integration idea or would like to share an integration you developed with our community? Open a GitHub issue or send me an email.
 
-To Do / Roadmap
--------------
-*   ~~Integration with VirusTotal (VT) for subdomains validation~~
-*   Integratration with VirusTotal (VT) for malware detection
-*   ~~Use certificate transparency~~
-*   ~~Homograph detection~~ done
-*   ~~Improve code quality from B to A grade (codacy)~~
-*   ~~PEP8 compliance~~
-*   AND logical condition for keywords search (e.g: google+login) - Thanks to Steff T.
-*   Enhanced documentation
+## To Do / Roadmap
+- ~~Integration with VirusTotal (VT) for subdomains validation~~
+- Integration with VirusTotal (VT) for malware detection
+- ~~Use certificate transparency~~
+- ~~Homograph detection~~
+- ~~Improve code quality from B to A grade (codacy)~~
+- ~~PEP8 compliance~~
+- AND logical condition for keywords search (e.g., google+login) - Thanks to Steff T.
+- Enhanced documentation
 
-Changelog
--------------
-*   Check the [CHANGELOG](https://github.com/atenreiro/opensquat/blob/master/CHANGELOG) file.
+## Changelog
+Check the [CHANGELOG](https://github.com/atenreiro/opensquat/blob/master/CHANGELOG) file.
 
-How to Contribute
--------------
+## How to Contribute
 We welcome and encourage contributions from the community! If you're interested in helping improve openSquat, here are a variety of ways you can contribute:
 
 - **Reporting Bugs:** To report bugs, open an issue on our [GitHub issues page](https://github.com/atenreiro/opensquat/issues). You should include as much detail as possible to help us understand the problem and what the ideal solution would be.
@@ -169,21 +148,19 @@ We welcome and encourage contributions from the community! If you're interested 
 
 Thank you for your interest in contributing to openSquat!
 
-Authors
--------------
-Project founder
-*   Andre Tenreiro [(LinkedIn)](https://www.linkedin.com/in/andretenreiro/)
-*   andre+nospam@opensquat.com - remove the "nospam" - [PGP Key](https://mail-api.proton.me/pks/lookup?op=get&search=andre@opensquat.com)
+## Authors
+Project founder:
+- Andre Tenreiro [(LinkedIn)](https://www.linkedin.com/in/andretenreiro/)
+- andre+nospam@opensquat.com - remove the "nospam" - [PGP Key](https://mail-api.proton.me/pks/lookup?op=get&search=andre@opensquat.com)
 
-Contributors
-*   Please check the contributors page on GitHub
+Contributors:
+- Please check the contributors page on GitHub.
 
-How to Help
--------------
+## How to Help
 You can help this project in many ways:
-*   Providing your time and coding skills to enhance the project
-*   Build a decent but simple [project webpage](https://opensquat.com)
-*   Provide access to OSINT feeds
-*   Open new issues with new suggestions, ideas, bug report or feature requests
-*   Spread this project within your network
-*   Share your story how have you been using the openSquat and what impact it brought to you
+- Providing your time and coding skills to enhance the project
+- Building a decent but simple [project webpage](https://opensquat.com)
+- Providing access to OSINT feeds
+- Opening new issues with suggestions, ideas, bug reports, or feature requests
+- Spreading this project within your network
+- Sharing your story about how you have been using openSquat and its impact
