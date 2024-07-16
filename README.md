@@ -1,3 +1,5 @@
+:warning: **this page for the release v3.0.0 (Merlion) is still being updated**
+
 openSquat
 ====
 ![alt text](https://raw.githubusercontent.com/atenreiro/opensquat/master/screenshots/openSquat_logo.png)
