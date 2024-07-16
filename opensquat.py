@@ -90,7 +90,7 @@ def query_worker(keywords, max_workers, api_key, log_level, counter_queue, keywo
                 print(f"Total found: {len(domains)}")
                 if VERBOSE:
                     print(domains)
-                print("\n")
+                print("")
             except Exception as exc:
                 print(f"Keyword {keyword} generated an exception: {exc}")
                 results[keyword] = []
@@ -267,14 +267,14 @@ if __name__ == "__main__":
     else:
         cli_print_info("No Authentication - register at https://opensquat.com for higher API queries quotas")
 
-    print("\n\n")
+    print("")
     print("+---------- Execution Parameters ----------+")
     print(f"> Total keywords: {keywords_total}")
     print(f"> Keywords file: {keywords_file}")
     print(f"> Thread concurrency: {optimal_threads}")
     print(f"> Config file: {config_file}")
     print(f"> Verbosity: {VERBOSE}")
-    print("\n")
+    print("")
 
     # Total domains
     counter_queue = multiprocessing.Queue()
@@ -312,7 +312,7 @@ if __name__ == "__main__":
     # End timer
     end_time = round(time.time() - start_time, 2)
 
-    print("\n")
+    print("")
     print("+---------- Results ----------+")
     print(f"> Total results: {total_domains}")
     print(f"> Running time: {end_time} seconds")
