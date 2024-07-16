@@ -1,4 +1,11 @@
+# Let's first read the uploaded README.md file to check its content
+uploaded_file_path = "/mnt/data/README.md"
 
+with open(uploaded_file_path, "r") as file:
+    readme_content = file.read()
+
+# Updating the code snippets to use proper markdown formatting for better visibility
+updated_readme_content = """
 # openSquat
 ![openSquat Logo](https://raw.githubusercontent.com/atenreiro/opensquat/master/screenshots/openSquat_logo.png)
 
@@ -164,3 +171,11 @@ You can help this project in many ways:
 - Opening new issues with suggestions, ideas, bug reports, or feature requests
 - Spreading this project within your network
 - Sharing your story about how you have been using openSquat and its impact
+"""
+
+# Writing the updated content to a new README.md file
+updated_file_path = "/mnt/data/README_updated.md"
+with open(updated_file_path, "w") as file:
+    file.write(updated_readme_content)
+
+updated_file_path
