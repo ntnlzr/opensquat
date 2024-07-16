@@ -45,7 +45,7 @@ As an opensource project, everyone's welcome to contribute.
 
 Screenshot / Video Demo
 -------------
-![alt text](https://raw.githubusercontent.com/atenreiro/opensquat/master/screenshots/openSquat.PNG)
+![alt text](https://raw.githubusercontent.com/atenreiro/opensquat/dev/screenshots/openSquat.PNG)
 
 Check the 40 seconds [Demo Video](https://asciinema.org/a/361931) (v1.95)
 
