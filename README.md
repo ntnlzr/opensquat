@@ -49,7 +49,7 @@ Screenshot / Video Demo
 -------------
 ![alt text](https://raw.githubusercontent.com/atenreiro/opensquat/dev/screenshots/openSquat.PNG)
 
-Check the 10 seconds [Demo Video](https://asciinema.org/a/lppqS9w0saGy3gCdqZvkeaa91) (v3.0.0-alpha)
+Check the 21 seconds [Demo Video](https://asciinema.org/a/0A0BQ9p08uPKAd7mgCmYgp4aP) (v3.0.0-alpha)
 
 
 Demo / Forks
